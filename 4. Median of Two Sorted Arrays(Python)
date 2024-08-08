@@ -1,0 +1,15 @@
+class Solution(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        point = len(nums1) + len(nums2)
+
+        array = sorted(nums1 + nums2)
+
+        if point % 2:
+            return array[point//2]
+        ans = (array[point//2] + array[point//2-1])
+        return ans / 2.0
