@@ -1,0 +1,31 @@
+class Solution(object):
+
+    def math(self, l, r, longstring, longlength, s):
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            if (r - l + 1) > longlength:
+                longstring = s[l:r+1]
+                longlength = (r - l + 1)
+            l -= 1
+            r += 1
+        return longstring, longlength
+
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+
+        longstring = ''
+        longlength = 0
+
+        for i in range(len(s)):
+            
+            #odd
+            longstring, longlength = self.math(i, i, longstring, longlength, s)
+
+            #even
+            longstring, longlength = self.math(i, i+1, longstring, longlength, s)
+
+        return longstring
+            
+        
