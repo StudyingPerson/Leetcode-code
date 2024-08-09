@@ -1,0 +1,26 @@
+class Solution {
+public:
+
+    string math(int l, int r, string maxstr, string s){
+        while(l >= 0 && r < s.size() && s[l] == s[r]){
+            if((r - l + 1) > maxstr.size()){
+                maxstr = s.substr(l, (r - l + 1));
+            }
+            l--;
+            r++;
+        }
+        return maxstr;
+    }
+
+    string longestPalindrome(string s) {
+        string maxstr = "";
+
+        for(int i = 0;i < s.size();i++){
+            //odd
+            maxstr = math(i, i, maxstr, s);
+            //even
+            maxstr = math(i, i+1, maxstr, s);
+        }
+        return maxstr;
+    }
+};
