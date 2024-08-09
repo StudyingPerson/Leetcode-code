@@ -1,0 +1,20 @@
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows == 1:
+            return s
+
+        i = 0
+        num = (numRows - 1) * 2
+        tmp = [''] * numRows
+        for sym in s:
+            p = i % num
+            if p > num // 2:
+                p = num - p
+            tmp[p] += sym
+            i += 1
+        return ''.join(tmp)
