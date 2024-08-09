@@ -1,0 +1,43 @@
+class Solution {
+public:
+
+    bool countsquare(int x, int y, vector<vector<int>>& grid){
+        set<int>s{1,2,3,4,5,6,7,8,9};
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                s.erase(grid[x + i][y + j]);
+            }
+        }
+        if(!s.empty())
+            return false;
+        
+        return (grid[x][y] + grid[x][y + 1] + grid[x][y + 2] == 15 &&
+                grid[x + 1][y] + grid[x + 1][y + 1] + grid[x + 1][y + 2] == 15 &&
+                grid[x + 2][y] + grid[x + 2][y + 1] + grid[x + 2][y + 2] == 15 &&
+                grid[x][y] + grid[x + 1][y] + grid[x + 2][y] == 15 &&
+                grid[x][y + 1] + grid[x + 1][y + 1] + grid[x + 2][y + 1] == 15 &&
+                grid[x][y + 2] + grid[x + 1][y + 2] + grid[x + 2][y + 2] == 15 &&
+                grid[x][y] + grid[x + 1][y + 1] + grid[x + 2][y + 2] == 15 &&
+                grid[x][y + 2] + grid[x + 1][y + 1] + grid[x + 2][y] == 15);
+    
+    }
+
+    int numMagicSquaresInside(vector<vector<int>>& grid) {
+        if(grid.size() < 3 || grid[0].size() < 3 || grid.empty()){
+            return 0;
+        }
+
+        int rowNum = grid.size();
+        int colNum = grid[0].size();
+        int count = 0;
+
+        for(int i = 0;i <= rowNum - 3;i++){
+            for(int j = 0;j <= colNum - 3;j++){
+                if(countsquare(i,j,grid)){
+                    count ++;
+                }
+            }
+        }
+        return count;
+    }
+};
