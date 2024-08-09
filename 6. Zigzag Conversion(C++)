@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows == 1)
+            return s;
+
+        int num = (numRows - 1) * 2;
+        int i = 0;
+        vector<string>tmp(numRows);
+
+        for(char sym : s){
+            int p = i % num;
+            if(p > (num / 2)){
+                p = num - p;
+            }
+            tmp[p] += sym;
+            i++;
+        }
+
+        string ans = "";
+        for(auto str : tmp){
+            ans += str;
+        }
+        return ans;
+    }
+};
