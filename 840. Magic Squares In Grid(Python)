@@ -1,0 +1,28 @@
+class Solution(object):
+    def numMagicSquaresInside(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        if(len(grid) < 3 or len(grid[0]) < 3):
+            return 0
+
+        count = 0
+
+        for i in range(len(grid)-2):
+            for j in range(len(grid[0])-2):
+                m = [row[j:j+3] for row in grid[i:i+3]]
+                flat = [num for row in m for num in row]
+
+                if set(flat) != set(range(1,10)):
+                    continue
+
+                if (sum(m[0]) == 15 and sum(m[1]) == 15 and sum(m[2]) == 15 and
+                    sum([m[x][0] for x in range(3)]) == 15 and
+                    sum([m[x][1] for x in range(3)]) == 15 and
+                    sum([m[x][2] for x in range(3)]) == 15 and
+                    m[0][0] + m[1][1] + m[2][2] == 15 and
+                    m[0][2] + m[1][1] + m[2][0] == 15):
+                    count += 1
+                
+        return count
