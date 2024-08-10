@@ -1,0 +1,22 @@
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        dictionary = {}
+
+        for s in word:
+            if dictionary.get(s):
+                dictionary[s] += 1
+            else:
+                dictionary[s] = 1
+
+        ans = 0
+        other = ['1', '*', '0', '#']
+        for s in other:
+            if dictionary.get(s):
+                ans += dictionary[s]
+                dictionary[s] = 0
+
+        letters = sorted(dictionary.values(), reverse = True)
+        for i, idx in enumerate(letters):
+            ans += (i // 8 + 1) * idx
+
+        return ans 
