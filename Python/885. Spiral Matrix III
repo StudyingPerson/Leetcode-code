@@ -1,0 +1,31 @@
+class Solution(object):
+    def spiralMatrixIII(self, rows, cols, rStart, cStart):
+        """
+        :type rows: int
+        :type cols: int
+        :type rStart: int
+        :type cStart: int
+        :rtype: List[List[int]]
+        """
+        roads = [[rStart, cStart]]
+        count = 1
+        x, y = cStart, rStart
+        step = 1
+        d = 0
+
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+        while count < rows * cols:
+            for _ in range(2):
+                for _ in range(step):
+                    x += directions[d][0]
+                    y += directions[d][1]
+
+                    if 0 <= x < cols and 0 <= y < rows:                      
+                        roads.append([y, x])
+                        count += 1
+
+                d = (d + 1) % 4
+            step += 1
+
+        return roads
