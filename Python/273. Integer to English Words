@@ -1,0 +1,45 @@
+class Solution(object):
+
+    charDictionary = {
+        0: "Zero", 1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five",
+        6: "Six", 7: "Seven", 8: "Eight", 9: "Nine", 10: "Ten",
+        11: "Eleven", 12: "Twelve", 13: "Thirteen", 14: "Fourteen",
+        15: "Fifteen", 16: "Sixteen", 17: "Seventeen", 18: "Eighteen",
+        19: "Nineteen", 20: "Twenty", 30: "Thirty", 40: "Forty",
+        50: "Fifty", 60: "Sixty", 70: "Seventy", 80: "Eighty", 90: "Ninety",
+    }
+
+    def numberToWords(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+
+        if num == 0:
+            return 'Zero'
+
+        billions = num // 1000000000
+        millions = num % 1000000000 // 1000000
+        thousands = num % 1000000 // 1000
+        hundreds = num % 1000 // 100
+        tens = num % 100 // 10
+        num = num % 10
+
+        ans = ''
+
+        if billions:
+            ans = ans + ' ' + self.numberToWords(billions) + ' Billion'
+        if millions:
+            ans = ans + ' ' + self.numberToWords(millions) + ' Million'
+        if thousands:
+            ans = ans + ' ' + self.numberToWords(thousands) + ' Thousand'
+        if hundreds:
+            ans = ans + ' ' + self.charDictionary[hundreds] + ' Hundred'
+        if tens == 1:
+            ans =  ans + ' ' + self.charDictionary[tens * 10 + num]
+        elif tens:
+            ans = ans + ' ' + self.charDictionary[tens * 10]
+        if num and tens != 1:
+            ans = ans + ' ' + self.charDictionary[num]
+
+        return ans.strip()
