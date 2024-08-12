@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        int ans = 0;
+        int e = 1;
+        bool isFirst = true;
+
+        for(auto& sym : s){
+            if(isFirst){
+                if(sym == ' ') continue;
+                else if(sym == '+' || sym == '-'){
+                    isFirst = false;
+                    if(sym == '-')
+                        e = -1;
+                }
+                else if(sym >= '0' && sym <= '9'){
+                    ans = (sym - '0');    
+                    isFirst = false;
+                }
+                else{return 0;}
+                continue;
+            }
+            if(sym < '0' || sym > '9')
+                return e * ans;
+            if(ans > (INT_MAX - (sym - '0')) / 10)
+                return (e > 0) ? INT_MAX : INT_MIN;
+            ans = ans * 10 + (sym - '0');
+        }
+        return e * ans;
+    }
+};
