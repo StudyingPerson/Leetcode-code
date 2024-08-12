@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int close = 100000;
+
+        sort(nums.begin(),nums.end());
+
+        for(int i = 0;i < nums.size() - 2;i++){
+            int l = i + 1, r = nums.size() - 1;
+            while(l < r){
+                if(nums[i] + nums[l] + nums[r] == target)
+                    return target;
+                close = (abs(close - target) > abs((nums[i] + nums[l] + nums[r]) - target)) ? (nums[i] + nums[l] + nums[r]) : close;
+                if((nums[i] + nums[l] + nums[r]) > target)r--;
+                else if((nums[i] + nums[l] + nums[r]) < target)l++;
+            }
+        }
+        return close;
+    }
+};
