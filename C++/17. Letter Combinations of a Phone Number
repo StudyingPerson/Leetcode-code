@@ -1,0 +1,49 @@
+class Solution {
+public:
+
+    vector<string>ans;
+
+    string letter(int num){
+        switch(num){
+            case 2:
+                return "abc";
+            case 3:
+                return "def";
+            case 4:
+                return "ghi";
+            case 5:
+                return "jkl";
+            case 6:
+                return "mno";
+            case 7:
+                return "pqrs";
+            case 8:
+                return "tuv";
+            case 9:
+                return "wxyz";
+            default:
+                return "";
+        }
+    }
+
+    void write(string s, int num, string digits){
+        if(num == digits.size()){
+            ans.push_back(s);
+            return;
+        }
+
+        for(char& k : letter(digits[num] - '0')){
+            write(s + k, num + 1, digits);
+        }
+    }
+
+    vector<string> letterCombinations(string digits) {
+        
+        if(digits.empty())
+            return {};
+
+        write("", 0, digits);
+
+        return ans;
+    }
+};
