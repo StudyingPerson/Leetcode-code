@@ -1,0 +1,15 @@
+class KthLargest:
+
+    def __init__(self, k: int, nums: List[int]):
+        self.k = k
+        self.l = sorted(nums)
+        if len(self.l) > k:
+            self.l = self.l[-k:]
+
+    def add(self, val: int) -> int:
+        if len(self.l) < self.k:
+            self.l.append(val)
+        elif val > self.l[0]:
+            self.l[0] = val
+        self.l.sort()
+        return self.l[0]
