@@ -1,0 +1,32 @@
+class Solution {
+public:
+    char sw(char sym){
+        switch(sym){
+            case ')':
+                return '(';
+            case ']':
+                return '[';
+            case '}':
+                return '{';
+            default:
+                return ' ';
+        }
+    }
+
+    bool isValid(string s) {
+        vector<char>ans;
+
+        for(char& sym : s){
+            if(sym == ')' || sym == ']' || sym == '}'){
+                char top = (!ans.empty()) ? ans.back() : ' ';
+                if(top != sw(sym))return false;
+                else ans.pop_back();
+            }else if(sym == '(' || sym == '[' or sym == '{'){
+                ans.push_back(sym);
+            }else{
+                return false;
+            }
+        }
+        return ans.empty();
+    }
+};
