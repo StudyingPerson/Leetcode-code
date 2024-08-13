@@ -1,38 +1,37 @@
-class Solution {
-public:
-    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         
-        if(nums.size() < 4)return {};
+        ans = []
+        nums.sort()
 
-        vector<vector<int>>ans = {};
+        for i in range(len(nums)-3):
 
-        sort(nums.begin(),nums.end());
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
 
-        for(int i = 0;i < nums.size() - 3;i++){
-            if(i > 0 && nums[i] == nums[i-1])continue;
+            for j in range(i+1,len(nums)-2):
 
-            for(int j = i + 1;j < nums.size() - 2;j++){
-                if(j > i+1 && nums[j] == nums[j-1])continue;
+                if j > i+1 and nums[j] == nums[j-1]:
+                    continue
+                    
+                diff = target - nums[i] - nums[j]
+                l, r = j+1, len(nums) - 1
 
-                //數字會超過Int上限，先轉換為long避免overflow
-                long diff = target;
-                diff = diff - nums[i] - nums[j];
-                int l = j+1, r = nums.size() - 1;
+                if nums[l] + nums[l+1] > diff or nums[r] + nums[r-1] < diff:
+                    continue
 
-                if(nums[l] + nums[l+1] > diff || nums[r] + nums[r-1] < diff)continue;
+                while l < r:
+                    if nums[l] + nums[r] == diff:
+                        ans.append([nums[i], nums[j], nums[l], nums[r]])
+                        l += 1
+                        while l < r and nums[l] == nums[l-1]:
+                            l += 1
+                        r-= 1
+                        while l < r and nums[r] == nums[r+1]:
+                            r -= 1
+                    elif nums[l] + nums[r] > diff:
+                        r -= 1
+                    else:
+                        l += 1
 
-                while(l < r){
-                    if(nums[l] + nums[r] == diff){
-                        ans.push_back({nums[i],nums[j],nums[l],nums[r]});
-                        l++;r--;
-                        while(l < r && nums[l] == nums[l-1])l++;
-                        while(l < r && nums[r] == nums[r+1])r--;
-                    }
-                    else if(nums[l] + nums[r] > diff)r--;
-                    else l++;
-                }
-            }
-        }
-        return ans;
-    }
-};
+        return ans
