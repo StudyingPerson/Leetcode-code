@@ -1,0 +1,19 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        
+        maps = {')' : '(', ']' : '[', '}' : '{'}
+        ans = []
+
+        for sym in s:
+            if sym in maps.keys():
+                top = ans.pop() if len(ans) else ''
+                if top != maps[sym]:
+                    return False
+
+            elif sym in maps.values():
+                ans.append(sym)
+
+            else:
+                return False
+
+        return not len(ans)
