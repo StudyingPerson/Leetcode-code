@@ -1,0 +1,30 @@
+class Solution {
+public:
+
+    void bfs(int target, int start, vector<int>l, vector<vector<int>>& ans, vector<int>& candidates){
+        if(target < 0)return;
+        if(target == 0){
+            ans.push_back(l);
+            return;
+        }
+        for(int i = start; i < candidates.size();i++){
+            if(i > start && candidates[i] == candidates[i-1])
+                continue;
+            if(target < candidates[i]) break;
+
+            l.push_back(candidates[i]);
+            bfs(target-candidates[i],i+1,l,ans,candidates);
+            l.pop_back();
+        }
+    }
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+
+        sort(candidates.begin(),candidates.end());
+
+        bfs(target,0,{},ans,candidates);
+
+        return ans;
+    }
+};
