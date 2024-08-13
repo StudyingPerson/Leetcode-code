@@ -1,0 +1,22 @@
+class Solution {
+public:
+
+    vector<string> ans;
+
+    void trackback(string s = "", int left = 0, int right = 0, int n = 0){
+        if(s.size() == n * 2){
+            ans.push_back(s);
+            return;
+        }
+
+        if(left < n)trackback(s+"(",left+1,right,n);
+        if(right < left)trackback(s+")",left,right+1,n);
+    }
+
+    vector<string> generateParenthesis(int n) {
+        
+        trackback("",0,0,n);
+
+        return ans;
+    }
+};
