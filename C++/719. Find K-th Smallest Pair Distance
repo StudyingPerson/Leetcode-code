@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int smallestDistancePair(vector<int>& nums, int k) {
+
+        auto countPairs = [&](int mid){
+            int count = 0;
+            int left = 0;
+            for(int right = 0;right < nums.size();++right){
+                while(nums[right]-nums[left] > mid)
+                    left++;
+                count += (right - left);
+            }
+            return count;
+        };
+
+        //排列
+        sort(nums.begin(), nums.end());
+
+        //設最大(小)值
+        int l = 0, r = nums.back() - nums.front();
+
+        while(l < r){
+            //取中間值(避免over flow,值與(l+r)/2相同
+            int mid = l + (r - l) / 2;
+
+            //如果小於mid的pair數量...
+            if(countPairs(mid) < k)l = mid + 1;
+            else r = mid;
+        }
+
+        return l;
+    }
+};
