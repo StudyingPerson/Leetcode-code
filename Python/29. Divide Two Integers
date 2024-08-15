@@ -1,0 +1,22 @@
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
+        
+        def math(num, d):
+
+            if num < d:
+                return 0
+
+            nums = d
+            count = 1
+
+            while nums + nums < num:
+                count = count + count
+                nums += nums
+
+            return count + math(num - nums, d)
+
+        e = 1 if (dividend > 0) == (divisor > 0) else -1
+
+        ans = math(abs(dividend), abs(divisor)) * e
+
+        return min(max(-2**31,ans),2**31-1)
