@@ -1,0 +1,25 @@
+class Solution {
+public:
+
+    long math(long num, long d){
+        if(num < d)return 0;
+        long count = 1, nums = d;
+        while(nums + nums <= num){
+            count += count;
+            nums += nums;
+        }
+
+        return count + math(num - nums, d);
+    }
+
+    int divide(int dividend, int divisor) {
+        
+        long sign = ((dividend > 0) == (divisor > 0)) ? 1 : -1;
+
+        long ans = sign*math(abs(long(dividend)),abs(long(divisor)));
+
+        if(ans < 0)
+            return (INT_MIN > ans) ? INT_MIN : ans;
+        return (INT_MAX < ans) ? INT_MAX : ans;
+    }
+};
